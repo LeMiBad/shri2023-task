@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import ReactDOM from 'react-dom';
 
 function Header() {
@@ -46,7 +46,7 @@ function Header() {
     );
 }
 
-function Event(props) {
+const Event = React.memo (function Event(props) {
     const ref = React.useRef();
 
     const { onSize } = props;
@@ -72,7 +72,7 @@ function Event(props) {
             </button>
         </li>
     );
-}
+})
 
 const TABS = {
     all: {
@@ -225,12 +225,12 @@ function Main() {
         setActiveTab(event.target.value);
     }, []);
 
-    let sizes = [];
-    const onSize = React.useCallback(
+    let sizes = useRef([]);
+    const onSize = useCallback(
         (size) => {
-            sizes = [...sizes, size];
+            sizes.current = [...sizes.current, size];
         },
-        [sizes],
+        [],
     );
 
     React.useEffect(() => {
