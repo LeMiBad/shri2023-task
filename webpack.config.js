@@ -10,9 +10,11 @@ const config = {
     },
     mode: "production",
     optimization: {
-        usedExports: true,
+        splitChunks: {
+            chunks: 'all',
+        },
         minimizer: [new CssMinimizerPlugin()],
-    },
+    },    
     plugins: [new MiniCssExtractPlugin()],
     module: {
         rules: [
